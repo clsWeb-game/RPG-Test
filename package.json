@@ -1,0 +1,40 @@
+{
+  "name": "rogueforge",
+  "version": "1.0.0",
+  "description": "A Three.js/Node.js based browser roguelike rpg with multiplayer and web3 functionality",
+  "scripts": {
+    "start": "concurrently \"node src/server/app.js\" \"parcel src/client/index.html --open\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexkorol/RogueForge.git"
+  },
+  "keywords": [
+    "roguelike",
+    "web3",
+    "three.js",
+    "multiplayer"
+  ],
+  "author": "Alex Korol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexkorol/RogueForge/issues"
+  },
+  "homepage": "https://github.com/alexkorol/RogueForge#readme",
+  "dependencies": {
+    "@metamask/detect-provider": "^2.0.0",
+    "ethers": "^6.0.0",
+    "express": "^4.18.2",
+    "logkitx": "^1.0.1",
+    "pdfkit": "^0.18.0",
+    "phaser": "^3.60.0",
+    "pino": "^10.3.0",
+    "socket.io": "^4.6.1",
+    "three": "^0.151.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0",
+    "parcel": "^2.16.4",
+    "parcel-bundler": "^1.12.5"
+  }
+}
