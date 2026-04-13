@@ -42,6 +42,7 @@ export class DungeonMap {
       new Array(this.cols).fill(TILE.WALL)
     );
 
+    // Original generator settings (same as @src), which produce varied room layouts.
     const maxRooms = 8 + Math.min(this.floor, 4);
     const minSize = 3;
     const maxSize = 6;
@@ -81,9 +82,31 @@ export class DungeonMap {
 
     this.playerStart = { x: this.rooms[0].centerX, y: this.rooms[0].centerY };
 
-    const last = this.rooms[this.rooms.length - 1];
-    this.stairsPos = { x: last.centerX, y: last.centerY };
-    this.tiles[last.centerY][last.centerX] = TILE.STAIRS;
+    // Place the portal far away from the player. Using "last room center" can
+    // coincide with the player start when only 1 room was placed.
+    let best = null;
+    let bestDist = -1;
+    for (let row = 1; row < this.rows - 1; row++) {
+      for (let col = 1; col < this.cols - 1; col++) {
+        if (this.tiles[row][col] === TILE.WALL) continue;
+        if (col === this.playerStart.x && row === this.playerStart.y) continue;
+        const d = Math.abs(col - this.playerStart.x) + Math.abs(row - this.playerStart.y);
+        if (d > bestDist) {
+          bestDist = d;
+          best = { x: col, y: row };
+        }
+      }
+    }
+
+    // Fallback (should be rare): if we somehow couldn't find a different tile,
+    // keep the previous behavior.
+    if (!best) {
+      const last = this.rooms[this.rooms.length - 1];
+      best = { x: last.centerX, y: last.centerY };
+    }
+
+    this.stairsPos = best;
+    this.tiles[this.stairsPos.y][this.stairsPos.x] = TILE.STAIRS;
 
     this.floorVariant = Array.from({ length: this.rows }, () =>
       new Array(this.cols).fill('walk')
@@ -129,6 +152,17 @@ export class DungeonMap {
         points.push({ x, y });
       }
     }
+    // Fallback: fill remaining spawns from random floor cells.
+    let guard = 0;
+    while (points.length < count && guard++ < count * 50) {
+      const x = 1 + Math.floor(Math.random() * (this.cols - 2));
+      const y = 1 + Math.floor(Math.random() * (this.rows - 2));
+      if (this.tiles[y][x] === TILE.WALL) continue;
+      if (x === this.playerStart.x && y === this.playerStart.y) continue;
+      if (x === this.stairsPos.x && y === this.stairsPos.y) continue;
+      if (points.some(p => p.x === x && p.y === y)) continue;
+      points.push({ x, y });
+    }
     return points;
   }
 
@@ -143,6 +177,17 @@ export class DungeonMap {
         if (points.some(p => p.x === x && p.y === y)) continue;
         points.push({ x, y });
       }
+    }
+    // Fallback: fill remaining spawns from random floor cells.
+    let guard = 0;
+    while (points.length < count && guard++ < count * 50) {
+      const x = 1 + Math.floor(Math.random() * (this.cols - 2));
+      const y = 1 + Math.floor(Math.random() * (this.rows - 2));
+      if (this.tiles[y][x] === TILE.WALL) continue;
+      if (x === this.playerStart.x && y === this.playerStart.y) continue;
+      if (x === this.stairsPos.x && y === this.stairsPos.y) continue;
+      if (points.some(p => p.x === x && p.y === y)) continue;
+      points.push({ x, y });
     }
     return points;
   }
