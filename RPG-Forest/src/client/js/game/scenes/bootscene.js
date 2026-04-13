@@ -14,6 +14,7 @@ const skeletonUrl = new URL('../../../assets/skeleton.png', import.meta.url).toS
 const dragonUrl = new URL('../../../assets/dragon.png', import.meta.url).toString();
 const dragon2Url = new URL('../../../assets/dragon2.png', import.meta.url).toString();
 const logoUrl = new URL('../../../assets/logo2.jpg', import.meta.url).toString();
+const bgUrl = new URL('../../../assets/bg.png', import.meta.url).toString();
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -50,6 +51,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('dragon', dragonUrl);
     this.load.image('dragon2', dragon2Url);
     this.load.image('logo', logoUrl);
+    this.load.image('bg', bgUrl);
   }
 
   create() {

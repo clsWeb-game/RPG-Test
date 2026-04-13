@@ -66,6 +66,7 @@ export default class Enemy {
     this.color = def.color;
     this.symbol = def.symbol;
     this.alive = true;
+    this.angle = 0;
 
     if (type === 'boss') {
       this.imageKey = Math.random() < 0.5 ? 'dragon' : 'dragon2';
