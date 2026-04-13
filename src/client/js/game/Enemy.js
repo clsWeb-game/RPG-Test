@@ -82,4 +82,5 @@ export default class Enemy {
     if (floor >= 2 && r < 0.55) return 'orc';
     return 'goblin';
   }
-}
+};
+
