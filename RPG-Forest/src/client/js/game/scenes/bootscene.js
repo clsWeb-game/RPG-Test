@@ -1,18 +1,19 @@
 import Phaser from 'phaser';
-
-import grassImg from '../../../assets/grass.png';
-import walkImg from '../../../assets/walk.png';
-import portalImg from '../../../assets/portal.png';
-import pointImg from '../../../assets/point.png';
-import poin1Img from '../../../assets/poin1.png';
-import megicalImg from '../../../assets/megical-tile.png';
-import characterImg from '../../../assets/character.png';
-import goblinImg from '../../../assets/goblin.png';
-import orcImg from '../../../assets/orc.png';
-import skeletonImg from '../../../assets/skeleton.png';
-import dragonImg from '../../../assets/dragon.png';
-import dragon2Img from '../../../assets/dragon2.png';
-import logoImg from '../../../assets/logo2.png';
+// NOTE: keep these as static `new URL(<literal>, import.meta.url)` so Parcel rewrites
+// them to fingerprinted asset URLs at build time.
+const grassUrl = new URL('../../../assets/grass.png', import.meta.url).toString();
+const walkUrl = new URL('../../../assets/walk.jpg', import.meta.url).toString();
+const portalUrl = new URL('../../../assets/portal.jpg', import.meta.url).toString();
+const pointUrl = new URL('../../../assets/point.jpg', import.meta.url).toString();
+const poin1Url = new URL('../../../assets/poin1.jpg', import.meta.url).toString();
+const megicalTileUrl = new URL('../../../assets/megical-tile.jpg', import.meta.url).toString();
+const characterUrl = new URL('../../../assets/character.png', import.meta.url).toString();
+const goblinUrl = new URL('../../../assets/goblin.png', import.meta.url).toString();
+const orcUrl = new URL('../../../assets/orc.png', import.meta.url).toString();
+const skeletonUrl = new URL('../../../assets/skeleton.png', import.meta.url).toString();
+const dragonUrl = new URL('../../../assets/dragon.png', import.meta.url).toString();
+const dragon2Url = new URL('../../../assets/dragon2.png', import.meta.url).toString();
+const logoUrl = new URL('../../../assets/logo2.jpg', import.meta.url).toString();
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -34,19 +35,21 @@ export default class BootScene extends Phaser.Scene {
     });
     this.load.on('complete', () => loadingText.destroy());
 
-    this.load.image('grass', grassImg);
-    this.load.image('walk', walkImg);
-    this.load.image('portal', portalImg);
-    this.load.image('point', pointImg);
-    this.load.image('poin1', poin1Img);
-    this.load.image('megical-tile', megicalImg);
-    this.load.image('character', characterImg);
-    this.load.image('goblin', goblinImg);
-    this.load.image('orc', orcImg);
-    this.load.image('skeleton', skeletonImg);
-    this.load.image('dragon', dragonImg);
-    this.load.image('dragon2', dragon2Img);
-    this.load.image('logo', logoImg);
+    // Use bundler-resolved URLs so Phaser always gets a valid URL string.
+    // (Some assets are JPEGs, so extensions must match the on-disk files.)
+    this.load.image('grass', grassUrl);
+    this.load.image('walk', walkUrl);
+    this.load.image('portal', portalUrl);
+    this.load.image('point', pointUrl);
+    this.load.image('poin1', poin1Url);
+    this.load.image('megical-tile', megicalTileUrl);
+    this.load.image('character', characterUrl);
+    this.load.image('goblin', goblinUrl);
+    this.load.image('orc', orcUrl);
+    this.load.image('skeleton', skeletonUrl);
+    this.load.image('dragon', dragonUrl);
+    this.load.image('dragon2', dragon2Url);
+    this.load.image('logo', logoUrl);
   }
 
   create() {
