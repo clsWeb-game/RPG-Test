@@ -1,0 +1,13 @@
+# .gitignore
+
+# Ignore node_modules
+node_modules/
+
+# Ignore build artifacts and logs
+dist/
+logs/
+*.log
+.cache/
+.parcel-cache/
+.idea/
+*.pdf
