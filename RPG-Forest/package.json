@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Three.js/Node.js based browser roguelike rpg with multiplayer and web3 functionality",
   "scripts": {
-    "start": "concurrently \"node src/server/app.js\" \"parcel src/client/index.html --open\""
+    "start": "node init && concurrently \"node src/server/app.js\" \"parcel src/client/index.html --open\""
   },
   "repository": {
     "type": "git",
